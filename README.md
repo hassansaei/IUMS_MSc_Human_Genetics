@@ -37,4 +37,4 @@ The GEO, PubMed, and ArrayExpress databases have selected to identify gene expre
 ## Citations
 1. Hassan Saei, Ali Govahi, Ameneh Abiri, Maryam Eghbali, Maryam Abiri,
 Comprehensive transcriptome mining identified the gene expression signature and differentially regulated pathways of the late-onset preeclampsia, Pregnancy Hypertension, 2021. PMID: 34098523 DOI: 10.1016/j.preghy.2021.05.007.
-2. Abiri, M., Saei, H., Eghbali, M. et al. Maple syrup urine disease mutation spectrum in a cohort of 40 consanguineous patients and insilico analysis of novel mutations. Metab Brain Dis 34, 1145–1156 (2019). PMID: 31119508 DOI: 10.1007/s11011-019-00435-y (Abiri, M. and Saei, H. contributed equally to this work).
+2. Abiri, M., Saei, H., Eghbali, M. et al. Maple syrup urine disease mutation spectrum in a cohort of 40 consanguineous patients and insilico analysis of novel mutations. Metab Brain Dis 34, 1145–1156 (2019). PMID: 31119508, DOI: 10.1007/s11011-019-00435-y (Abiri, M. and Saei, H. contributed equally to this work).
