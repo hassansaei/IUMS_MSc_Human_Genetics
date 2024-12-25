@@ -34,7 +34,7 @@ The GEO, PubMed, and ArrayExpress databases have selected to identify gene expre
 ![Preeclampsia Figure 2](Preeclampsia/1-s2.0-S2210778921000386-gr6_lrg.jpg)
 *Figure 2: The volcano plot illustrates the up-regulated and down-regulated DEGs of the placenta across PEs and the healthy controls. The x-axis represents the log 2-fold change (FC), and the y-axis represents -log10 adjusted p-value.*
 
-## Citations
+## Publications
 1. Hassan Saei, Ali Govahi, Ameneh Abiri, Maryam Eghbali, Maryam Abiri,
 Comprehensive transcriptome mining identified the gene expression signature and differentially regulated pathways of the late-onset preeclampsia, Pregnancy Hypertension, 2021. PMID: 34098523 DOI: 10.1016/j.preghy.2021.05.007.
 2. Abiri, M., Saei, H., Eghbali, M. et al. Maple syrup urine disease mutation spectrum in a cohort of 40 consanguineous patients and insilico analysis of novel mutations. Metab Brain Dis 34, 1145–1156 (2019). PMID: 31119508, DOI: 10.1007/s11011-019-00435-y (Abiri, M. and Saei, H. contributed equally to this work).
