@@ -13,10 +13,10 @@ Maple syrup urine disease is the primary aminoacidopathy affecting branched-chai
 
 
 #### Figures from the published paper
-![MSUD Figure 1](MSUD/1-s2.0-S2210778921000386-gr1_lrg.jpg)
+![MSUD Figure 1](MSUD/)
 *Figure 1: Overview of the step-wise workflow for the expression array data meta-analysis. Selection process of eligible microarray datasets for meta-analysis of PE and Control. Depiction of the flow chart of the process involved in dataset integration and merge data analysis pipeline.*
 
-![MSUD Figure 2](MSUD/1-s2.0-S2210778921000386-gr6_lrg.jpg)
+![MSUD Figure 2](MSUD/)
 *Figure 2: The volcano plot illustrates the up-regulated and down-regulated DEGs of the placenta across PEs and the healthy controls. The x-axis represents the log 2-fold change (FC), and the y-axis represents -log10 adjusted p-value.*
 
 ### 2. Gene Expression Analysis in Preeclampsia
@@ -28,10 +28,10 @@ Preeclampsia (PE) is categorized as a pregnancy-related hypertensive disorder an
 The GEO, PubMed, and ArrayExpress databases have selected to identify gene expression datasets on placenta samples of both preeclampsia and the normotensive controls. A comprehensive gene expression meta-analysis of fourteen publicly available microarray data of preeclampsia disease has performed to identify gene expression signature and responsible biological pathways and processes. Using two different meta-analysis pipeline (in-house and INMEX) we have identified a total of 1234 differentially expressed genes (DEGs) with in-house method, including 713 overexpressed and 356 under-expressed genes whereas 272 DEGs (131 over and 141 under-expressed) have identified with INMEX, across PEs and healthy controls. Comprehensive functional enrichment and pathway analysis was performed by EnrichR library, whic revealed “Asparagine N-linked glycosylation Homo sapiens”, “Nef and signal transduction”, “Hemostasis”, and “immune system” among the most enriched terms. The present study sets out to explain a novel database of candidate genetic markers and biological pathways that play a critical role in PE development, which might aid in the identification of diagnostic, prognostic, and therapeutic informative molecules.
 
 #### Figures from the published paper
-![Preeclampsia Figure 1](Preeclampsia/)
+![Preeclampsia Figure 1](Preeclampsia/1-s2.0-S2210778921000386-gr1_lrg.jpg)
 *Figure 1: Overview of the step-wise workflow for the expression array data meta-analysis. Selection process of eligible microarray datasets for meta-analysis of PE and Control. Depiction of the flow chart of the process involved in dataset integration and merge data analysis pipeline.*
 
-![Preeclampsia Figure 2](Preeclampsia/)
+![Preeclampsia Figure 2](Preeclampsia/1-s2.0-S2210778921000386-gr6_lrg.jpg)
 *Figure 2: The volcano plot illustrates the up-regulated and down-regulated DEGs of the placenta across PEs and the healthy controls. The x-axis represents the log 2-fold change (FC), and the y-axis represents -log10 adjusted p-value.*
 
 ## Citations
