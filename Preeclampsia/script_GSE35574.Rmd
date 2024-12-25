@@ -1,0 +1,187 @@
+---
+title: "Gene Expression Analysis in Preeclampsia - GSE35574"
+author: "Hassan Saei"
+contact: "hassan.saeiahan@gmail.com"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+Preeclampsia is a pregnancy-specific disorder characterized by hypertension and proteinuria. It is a leading cause of maternal and perinatal morbidity and mortality. The pathogenesis of preeclampsia is not well understood. However, it is believed that the placenta plays a central role in the development of this disorder. In this analysis, we will investigate the gene expression changes in the plac
+This document provides a step-by-step analysis of gene expression data in preeclampsia using the dataset GSE35574.
+
+# Load Libraries
+
+First, we load the necessary libraries for the analysis.
+
+```{r load-libraries}
+# In god we trust
+rm(list=ls())
+library(limma)
+library(dplyr)
+library(radiant)
+library(EnhancedVolcano)
+library(tidyverse)
+library(clusterProfiler)
+library(data.table)
+library(ggplot2)
+library(ggpubr)
+library(ComplexHeatmap)
+library(pheatmap)
+library(heatmaply)
+```
+
+# Load Data
+We load the raw expression matrix and annotation data.
+
+```{r load-data}
+# Raw expression matrix and annotation
+rawdata <- fread("GSE35574_series_matrix.txt", skip = "!series_matrix_table_begin")
+ann <- fread("GSE35574_family.soft", skip = "!platform_table_begin")
+rawdata <- data.frame(rawdata)
+row.names(rawdata) <- rawdata$ID_REF
+rawdata <- rawdata[,-1]
+```
+
+# Data Transformation
+
+We apply log transformation to the data if necessary.
+
+```{r data-transformation}
+datalog <- function(x) {
+  if(max(x) > 30)
+    log2(x)
+  else
+    x
+}
+data <- datalog(rawdata)
+```
+
+# Annotation
+
+We process the annotation data.
+
+```{r annotation}
+colnames(ann)
+# Annotation
+annNames <- c("ID", "Symbol")
+ann <- ann[,c("ID", "Symbol")]
+colnames(ann) <- annNames
+s <- strsplit2(ann$Symbol, split = "///")
+s1 <- cbind(ann, s)
+ann <- s1[,1:3]
+ann <- ann[,-2]
+colnames(ann) <- annNames
+data$ID <- rownames(data)
+```
+
+# Merge Data with Annotation
+We merge the expression data with the annotation file.
+
+```{r merge-data}
+# Merge data with annotation file
+adata <- merge(data, ann, by="ID")
+adata <- data.frame(adata)
+adata <- adata[,-1]
+dataDF <- aggregate(.~Symbol, adata, mean)
+any(duplicated(dataDF$Symbol))
+rownames(dataDF) <- dataDF$Symbol
+dataDF <- dataDF[-1,]
+dataDF <- dataDF[,-1]
+dim(dataDF)
+
+```
+
+
+# Normalization
+We normalize the data using quantile normalization.
+
+```{r normalization}
+######## Normalization Step
+mdata.q <- normalizeQuantiles(dataDF)
+pdf("Boxplot_DMD.pdf", width= 80)
+boxplot(dataDF)
+boxplot(mdata.q)
+dev.off()
+```
+
+# Correlation Heatmap
+We create a heatmap of the correlation matrix.
+
+```{r correlation-heatmap}
+library(pheatmap)
+pdf("CorHeatmap_DMD.pdf", width = 20, height = 15)
+pheatmap(cor(mdata.q))
+dev.off()
+```
+
+# Principal Component Analysis (PCA)
+We perform PCA on the normalized data.
+
+```{r pca}
+pc <- prcomp(mdata.q)
+pcr <- data.frame(Sample=rownames(pc$r), pc$r)
+pdf("PCA_DMD.pdf", width = 20, height = 15)
+ggplot(pcr, aes(PC1, PC2, color=Sample))+geom_point(size=3)+theme_bw()
+dev.off()
+
+```
+
+# Differentially Expressed Genes (DEGs)
+We identify differentially expressed genes.
+
+```{r degs}
+# Differentially expressed Genes
+target <- read.delim(file = "groups.txt", sep = "\t")
+group <- target$group
+class(group)
+group=factor(group,levels = unique(group))
+class(group)
+design <- model.matrix(~0+group)
+rownames(design)=rownames(target)
+colnames(design)=levels(group)
+Fit <- lmFit(object = mdata.q,design = design)
+f.data=data.frame(Fit)
+mc=makeContrasts(contrasts = "PE-Control",levels = design)
+Fit2=contrasts.fit(fit = Fit,contrasts = mc)
+f.data=data.frame(Fit2)
+Fit3=eBayes(fit = Fit2)
+f.data=data.frame(Fit3)
+results <- topTable(fit = Fit3,coef = "PE-Control",number = Inf ,adjust.method = "BH",
+                    sort.by = "logFC")
+write.table(x = results,file = "PE_Control.tsv", quote = F ,sep = "\t")
+DEG.up <- subset(x = results, logFC>0.5 & adj.P.Val<0.05)
+DEG.down <- subset(x = results, logFC<=-0.1 & adj.P.Val<0.05)
+write.table(x =DEG.up,file = "PE_DEGs_up.tsv", quote = F,sep = "\t")
+write.table(x =DEG.down,file = "PE_DEGs_down.tsv", quote = F,sep = "\t")
+```
+
+# Volcano Plot
+We create a volcano plot to visualize the DEGs.
+
+```{r volcano-plot}
+# Plot
+results$symbol <- rownames(results)
+mdata.q$symbol <- rownames(mdata.q)
+mdata <- merge(results, mdata.q, by= "symbol")
+# Plot
+library(EnhancedVolcano)
+EnhancedVolcano(mdata,
+                lab = mdata$symbol,
+                x = 'logFC',
+                y = 'adj.P.Val',
+                title = 'Pre-eclampsia versus healthy control',
+                col=c('black', 'gray', 'black', 'red3'), pCutoff = 10e-2, FCcutoff = 0.5)
+```
+
+# Conclusion
+This analysis provides insights into the differentially expressed genes in preeclampsia, which can help in understanding the molecular mechanisms underlying the disease.
+
+
+
+
