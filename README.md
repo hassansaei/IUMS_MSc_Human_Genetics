@@ -1,6 +1,6 @@
 # IUMS_MSc_Human_Genetics
 
-A repository to upload datasets and publicly available R scripts used for publications at the medical genetics department at IUMS.
+A repository for uploading datasets and publicly available R scripts used in publications by me at the Medical Genetics Department at IUMS from 2017-2020.
 
 ## Projects
 
